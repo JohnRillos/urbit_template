@@ -1,6 +1,6 @@
-DESK_NAME="exampledesk"
-urbit_repo_path=$1
-pier_path=$2
+desk_name=$1
+urbit_repo_path=$2
+pier_path=$3
 project_path=$(pwd)
 
 cd $urbit_repo_path/pkg
