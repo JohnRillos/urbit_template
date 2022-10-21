@@ -1,53 +1,72 @@
-# Template for Urbit projects
+<!---
+    Initial Repository Setup:
+    * Replace "template" with the name of your app everywhere in this repo
+    * Add your name to LICENSE
+-->
 
-## 1) Create a new desk for your ship
-* Boot a ship to use for development
-* Create and mount a new desk (in Dojo)
-    ```
-    |merge %mydesk our %base
-    |mount %mydesk
-    ```
-* Delete the contents of the desk in your pier (in Bash)
-    ```
-    rm -r PATH/TO/PIER/mydesk/*
-    ```
+# %template
 
-* `PATH/TO/PIER` : the pier of the ship you're developing on
+An app for [Urbit](https://urbit.org).
 
----
+-----
 
-## 2) Import a base dev desk
+[Overview](./src/doc/overview.udon)
 
-Import a dev desk to use as a base for your project's `/base` directory.
+[Changelog](./src/doc/changelog.udon)
 
+Documentation and release notes can also be viewed in the [%docs](https://github.com/tinnus-napbus/docs-app) app.
+
+-----
+## Project Structure:
+
+`src/`: Hoon source code. All code here is original and specific to this project.
+
+`deps/`: Hoon dependencies that can't be imported via [Herd](./src/desk.herd) are pasted into this directory. None of the code here is original to this project.
+
+`ui/`: Source code for the React.js frontend.
+
+`dev_desk`: Contains the name of the dev desk used by Herd.
+
+`build_desk`: Contains the name of the build desk. App will be distributed as this desk.
+
+`_sync.sh`: Script for syncing project files into a dev desk in a pier.
+
+`_build.sh`: Run this in your **dev** environment. Copies the build desk from a dev ship, and builds the React frontend. The `/.build` dir should not be commited except to a `build` branch.
+
+`_dist.sh`: Run this in your **distribution** environment on a `build` branch. Copies contents of `.build` to your distribution ship's pier.
+
+-----
+
+## Initial dev ship setup
+* Boot a moon to use for development
+* Install `%docs` for documentation and `%citadel` for dependency management (Herd).
 ```
-./_import_base.sh
+|install ~pocwet %docs
+|install ~dister-dozzod-middev %citadel
 ```
-This command will clone the [Urbit](https://github.com/urbit/urbit) repository to `/.urbit` and use it to build  `/base`.
-
-If you already have the Urbit repo cloned on your machine, you can include the path to it:
-
+* Create your dev desk and build desk with Herd
 ```
-./_import_base.sh PATH/TO/URBIT/REPO
+-citadel!herd-init [%template-dev %template]
+```
+* Mount your dev desk
+```
+|mount %template-dev
+```
+* Run `_sync.sh` to continually sync your source code with your dev desk.
+* When you want to your changes to apply to your dev ship, commit them via `%citadel` / Herd.
+```
+-citadel!commit [%template-dev %template]
 ```
 
-`/base` serves as the base for your app's desk, kept in a separate directory from your main source files to reduce clutter.
-* Your main source files are in `/src`, and will be used to build your app's desk, on top of `/base`.
-* Files in `/base` should not be edited, however you can override any file in `/base` by providing a file with the same name in `/src`.
+-----
+## Running the app:
 
----
-
-## 3) Set your desk's name
-Edit the contents of the `desk_name` file to your desk's name.
-
----
-## 4) Sync your project files to your pier
-Bash:
-```
-bash ./_sync.sh PATH/TO/PIER
-```
+Unix:
+* `./_sync.sh PATH/TO/PIER` to sync `src/` and `deps/` to your dev desk.
+* In `ui/` run `npm run dev`
+  * or `npm run dev:env foo` to use `ui/.env.foo.local` as config
 
 Dojo:
-```
-|commit %my-desk
-```
+* `-citadel!commit [%template-dev %template]` to build your desk via Herd.
+  * `%citadel` must be installed first
+* `|install our %template` to install your desk and start the app for the first time

@@ -1,11 +1,11 @@
 #! /bin/sh
 pier_path=$1
-desk_name=$(cat ./desk_name)
+desk_name=$(cat ./dev_desk)
 desk_path="$pier_path/$desk_name"
 
 while :
 do
-    rsync -avz ./base/* $desk_path
-    rsync -avz ./src/* $desk_path
+    rsync -az ./deps/* $desk_path
+    rsync -az ./src/* $desk_path
     sleep 3
 done
