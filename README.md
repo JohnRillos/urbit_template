@@ -2,6 +2,8 @@
     Initial Repository Setup:
     * Replace "template" with the name of your app everywhere in this repo
     * Add your name to LICENSE
+    * If you want to use a React.JS frontend, clone https://github.com/urbit/create-landscape-app and copy `create-landscape-app/ts/ui/*` into a directory named `ui/`
+      * Otherwise, delete any references to ui/ in _build.sh and README.md
 -->
 
 # %template
