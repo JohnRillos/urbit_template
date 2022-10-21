@@ -8,6 +8,7 @@ ui/stats.html
 ui/.eslintcache
 ui/.vercel
 
-.build
+# On the build branch, .build/ contains the build desk, ready for distribution
+# .build
 
 .vscode
