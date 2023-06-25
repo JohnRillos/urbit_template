@@ -1,9 +1,9 @@
-:~  title+'Example App'
-    info+'Example description'
+:~  title+'Template App'
+    info+'App description'
     color+0xa0.e2a7
     base+'template'
     image+'https://example.com/image.svg'
-    glob-ames+[~sampel 0v0]
+    site+/template
     version+[0 0 1]
     website+'https://example.com'
     license+'MIT'
