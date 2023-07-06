@@ -36,8 +36,15 @@
     default  ~(. (default-agent this %|) bowl)
     main     ~(. +> bowl)
 ::
-++  on-init   on-init:default
-++  on-save   !>(~)
+++  on-init
+  ^-  (quip card _this)
+  =^  cards  state
+    =|  state=state-0
+    [~ state]
+  [cards this]
+::
+++  on-save  !>(state)
+::
 ++  on-load   on-load:default
 ::
 ++  on-poke
