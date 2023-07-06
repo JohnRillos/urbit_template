@@ -45,7 +45,7 @@
   ^-  (quip card _this)
   ?.  =(our.bowl src.bowl)  ~|('Unauthorized!' !!)
   ?+  mark  (on-poke:default mark vase)
-      %cryo-action
+      %template-action
     =^  cards  state
       (handle-action:main !<(action vase))
     [cards this]
